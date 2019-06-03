@@ -28,7 +28,14 @@
             <version>1.14.3</version>
         </dependency>
     </dependencies>
-
+	
+<distributionManagement>
+   <snapshotRepository>
+      <id>nexus-snapshots</id>
+      <url>http://192.168.33.10:8081/nexus/content/repositories/snapshots</url>
+   </snapshotRepository>
+</distributionManagement>
+	
     <licenses>
         <license>
             <name>Apache License, Version 2.0</name>
@@ -181,23 +188,31 @@
 				</execution>
 			</executions>
 		</plugin>
-            <plugin>
+  <!--          <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-release-plugin</artifactId>
                 <version>2.5.1</version>
             </plugin>
-
-            <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>1.6.5</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <serverId>sonatype-nexus-staging</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
-                </configuration>
-            </plugin>
+-->
+                 <plugin>
+   <groupId>org.sonatype.plugins</groupId>
+   <artifactId>nexus-staging-maven-plugin</artifactId>
+   <version>1.5.1</version>
+   <executions>
+      <execution>
+         <id>default-deploy</id>
+         <phase>deploy</phase>
+         <goals>
+            <goal>deploy</goal>
+         </goals>
+      </execution>
+      </executions>
+       <configuration>
+         <serverId>nexus</serverId>
+         <nexusUrl>http://192.168.33.10:8081/nexus/</nexusUrl>
+         <skipStaging>true</skipStaging>
+       </configuration>
+</plugin>
         </plugins>
         <resources>
             <resource>
